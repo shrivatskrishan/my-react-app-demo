@@ -31,9 +31,7 @@ const List = ({
         }, {});
         setListData(filtered);
       }
-    } else {
-      setListData(copylist);
-    }
+    } 
   }, [debounceValue]);
 
   return (

@@ -10,7 +10,7 @@ const PaymentStatus = {
   ADDTODO: 'Add Task',
   EDITODO: 'Edit Task',
 };
-let copyListData = {};
+let copyListData = {}
 const TodoList = () => {
   const [isShowNavigation, setIsShowNavigation] = useState(false);
   const [isAddTodoListShow, setIsAddTodoListShow] = useState(true);
@@ -138,7 +138,6 @@ const TodoList = () => {
       />
       {isAddTodoListShow && (
         <>
-          {' '}
           <List
             setListData={setListData}
             copylist={copyListData}
