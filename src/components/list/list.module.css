@@ -1,0 +1,18 @@
+.list_module_search_div {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.search_input_field {
+  padding: 8px 8px 8px 30px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+}
+.search_icon_top_div {
+  position: relative;
+}
+.search_icon_image {
+  left: 8px;
+  position: absolute;
+  top: 8px;
+}

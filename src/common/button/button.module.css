@@ -1,0 +1,15 @@
+.button_div {
+  border: 1px solid #034ea2;
+  padding: 16px 8px;
+  border-radius: 5px;
+  width: 110px;
+  cursor: pointer;
+}
+.primary {
+  background-color: #034ea2;
+  color: #ffffff;
+}
+.secondry {
+  background-color: #ffffff;
+  color: #034ea2;
+}

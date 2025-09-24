@@ -1,0 +1,57 @@
+.todo_form_top_div {
+  display: flex;
+  flex-direction: column;
+  padding: 50px 15px 0px 15px;
+}
+.input_field {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+}
+.text_are_field {
+  margin: 15px 0px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+}
+.button_top_div {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+.drop_down_top_div {
+  position: relative;
+  border: 1px solid #dddddd;
+}
+.drop_down_list_top_div {
+  cursor: pointer;
+  align-items: center;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+}
+.drop_down_all_list_top_div {
+  cursor: pointer;
+  align-items: center;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+}
+.lsit_element_drop_down {
+  margin-right: 5px;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+.all_drop_list {
+  width: 100%;
+  top: 53px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  flex-direction: column;
+  display: flex;
+  background: #ffffff;
+  position: absolute;
+}

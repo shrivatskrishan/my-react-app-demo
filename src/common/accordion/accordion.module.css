@@ -1,0 +1,79 @@
+.accordian_top_div {
+  margin-top: 20px;
+}
+.accordion_header_div {
+  cursor: pointer;
+  background: #f3f6f9;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.accordian_card_top_div {
+  padding: 16px;
+  margin-top: 14px;
+}
+.accordian_titel_top_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.accordion_titel_div {
+  display: flex;
+  align-items: center;
+}
+.accordian_sort_titel_div {
+  width: 30px;
+  height: 30px;
+  /* font-weight: bold; */
+  font-size: 12px;
+  border: 1px solid #034ea2;
+  /* text-align: center; */
+  border-radius: 50%;
+  color: #034ea2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.accor_titel_div {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #034ea2;
+}
+.status_top_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status_div {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffb03c;
+  margin-right: 5px;
+}
+.task_dis_div {
+  margin-left: 40px;
+}
+.creat_butt_top_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.creation_date_div {
+  color: #767676;
+  margin-left: 40px;
+}
+.button_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit_icon_div {
+  cursor: pointer;
+  padding-right: 10px;
+}
+.accordian_card_top_div:hover {
+  background-color: #f3f6f9;
+}
