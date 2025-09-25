@@ -2,12 +2,37 @@ import deleteIcon from '../../assets/Trash.svg';
 import editIcon from '../../assets/vector-10.svg';
 import style from './accordion.module.css';
 import { colorCode } from '../../helper/utils';
+export type StatusType = 'inProgress' | 'pending' | 'completed';
 
-const AccordianList = ({ listData, onEdit, onDelete, openAccordian }) => {
+export interface TodoItem {
+  id: string;
+  title: string;
+  description: string;
+  creationDate: Date;
+  status: StatusType;
+}
+
+export interface ListSection {
+  header: string;
+  isOpen: boolean;
+  data: TodoItem[];
+}
+
+export type ListData = Record<StatusType, ListSection>;
+interface AccordianListProps {
+  listData: ListData;
+  onEdit: (item: TodoItem, key: StatusType) => void;
+  onDelete: (item: TodoItem, key: StatusType) => void;
+  openAccordian: (key: StatusType) => void;
+}
+
+const AccordianList:React.FC<AccordianListProps> = ({ listData, onEdit, onDelete, openAccordian }) => {
   return (
     <>
       <div>
-        {Object.keys(listData)?.map((item) => (
+        {Object.keys(listData)?.map((itemkey) =>{
+           const item = itemkey as StatusType;
+           return  (
           <div className={style.accordian_top_div} key={`index_${item}`}>
             <div
               onClick={() => openAccordian(item)}
@@ -70,7 +95,9 @@ const AccordianList = ({ listData, onEdit, onDelete, openAccordian }) => {
               </>
             )}
           </div>
-        ))}
+        )
+        }
+        )}
       </div>
     </>
   );
