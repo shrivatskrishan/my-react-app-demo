@@ -1,31 +1,75 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '../common/header';
 import addTodoList from '../assets/primary.svg';
 import style from './todoDashboard.module.css';
 import TodoListForm from '../components/add-form';
 import List from '../components/list';
 
-const PaymentStatus = {
-  TODO: 'TO-DO APP',
-  ADDTODO: 'Add Task',
-  EDITODO: 'Edit Task',
-};
-let copyListData = {}
-const TodoList = () => {
-  const [isShowNavigation, setIsShowNavigation] = useState(false);
-  const [isAddTodoListShow, setIsAddTodoListShow] = useState(true);
-  const [headerText, setHeaderText] = useState(PaymentStatus.TODO);
-  const [editData, setEditData] = useState(null);
-  const [isEdit, setIsEdite] = useState(false);
-  const [createCopy, setCreateCopy] = useState(false);
+enum PaymentStatus {
+  TODO = 'TO-DO APP',
+  ADDTODO = 'Add Task',
+  EDITODO = 'Edit Task',
+}
+interface TodoItem {
+  id: string;
+  title: string;
+  description?: string;
+  status:string;
+  creationDate:string
+  [key: string]: any; // For extra dynamic fields
+}
 
-  const [listData, setListData] = useState({
+interface SectionData {
+  header: string;
+  isOpen: boolean;
+  data: TodoItem[];
+}
+
+interface ListData {
+  inProgress: SectionData;
+  pending: SectionData;
+  completed: SectionData;
+}
+
+interface ListProps {
+  setListData: React.Dispatch<React.SetStateAction<ListData>>;
+  copylist: ListData;
+  openAccordian: (key: keyof ListData) => void;
+  onDelete: (item: TodoItem, key: keyof ListData) => void;
+  onEdit: (item: TodoItem) => void;
+  listData: ListData;
+}
+
+interface TodoListFormProps {
+  saveEditeValue: (
+    currentKey: keyof ListData,
+    targetKey: keyof ListData,
+    id: string,
+    itemToMove: TodoItem
+  ) => void;
+  isEdit: boolean;
+  editData: TodoItem | null;
+  submitForm: (item: TodoItem, key: keyof ListData) => void;
+  backNavigation: () => void;
+}
+
+
+const TodoList: React.FC = () => {
+  const [isShowNavigation, setIsShowNavigation] = useState<boolean>(false);
+  const [isAddTodoListShow, setIsAddTodoListShow] = useState<boolean>(true);
+  const [headerText, setHeaderText] = useState<PaymentStatus>(PaymentStatus.TODO);
+  const [editData, setEditData] = useState<TodoItem | null>(null);
+  const [isEdit, setIsEdite] = useState<boolean>(false);
+  const [createCopy, setCreateCopy] = useState<boolean>(false);
+
+  const [listData, setListData] = useState<ListData>({
     inProgress: { header: 'In Progress', isOpen: true, data: [] },
     pending: { header: 'Pending', isOpen: false, data: [] },
     completed: { header: 'Completed', isOpen: false, data: [] },
   });
+    const copyListDataRef = useRef<ListData>(listData);
 
-  const openAccordian = useCallback((key) => {
+  const openAccordian = useCallback((key: keyof ListData):void => {
     setListData((prev) => ({
       ...prev,
       [key]: {
@@ -37,29 +81,30 @@ const TodoList = () => {
 
   useEffect(() => {
     if (createCopy) {
-      copyListData = { ...listData };
+      copyListDataRef.current = { ...listData };
+      // copyListData = { ...listData };
       setCreateCopy(false);
     }
   }, [listData, createCopy]);
 
-  const backNavigation = () => {
+  const backNavigation = ():void  => {
     setIsShowNavigation(false);
     setHeaderText(PaymentStatus.TODO);
     setIsAddTodoListShow(true);
     setIsEdite(false);
     setEditData(null);
   };
-  const showHide = () => {
+  const showHide = ():void => {
     setIsShowNavigation((prev) => !prev);
     setIsAddTodoListShow((prev) => !prev);
   };
 
-  const openTodoList = () => {
+  const openTodoList = ():void => {
     showHide();
     setHeaderText(PaymentStatus.ADDTODO);
   };
 
-  const onDelete = useCallback((item, key) => {
+  const onDelete = useCallback((item:TodoItem, key :keyof ListData):void  => {
     setListData((prev) => ({
       ...prev,
       [key]: {
@@ -70,13 +115,13 @@ const TodoList = () => {
     setCreateCopy(true);
   }, []);
 
-  const onEdit = useCallback((item) => {
+  const onEdit = useCallback((item:TodoItem):void => {
     setEditData(item);
     setIsEdite((prev) => !prev);
     showHide();
     setHeaderText(PaymentStatus.EDITODO);
   }, []);
-  const submitForm = useCallback((item, key) => {
+  const submitForm = useCallback((item: TodoItem, key: keyof ListData):void => {
     setListData((prev) => ({
       ...prev,
       [key]: {
@@ -90,7 +135,7 @@ const TodoList = () => {
   }, []);
 
   const saveEditeValue = useCallback(
-    (currentKey, targetKey, id, itemToMove) => {
+    (currentKey: keyof ListData, targetKey: keyof ListData, id: string, itemToMove: TodoItem):void => {
       setListData((prev) => {
         if (currentKey === targetKey) {
           const updatedData = prev[currentKey].data.map((item) =>
@@ -140,7 +185,7 @@ const TodoList = () => {
         <>
           <List
             setListData={setListData}
-            copylist={copyListData}
+            copylist={copyListDataRef.current}
             openAccordian={openAccordian}
             onDelete={onDelete}
             onEdit={onEdit}
